@@ -1,0 +1,46 @@
+program = blok "." .
+
+blok = [ "const" ident "=" číslo {"," ident "=" číslo} ";"]
+       [ "var" ident {"," ident} ";"]
+       { "procedure" ident ";" blok ";" }
+       příkaz .
+
+příkaz = [    ident ":=" výraz
+            | "call" ident
+            | "?" ident     // vynecham
+            | "!" výraz     // vynecham
+            | "begin" příkaz {";" příkaz } "end"
+            | "if" podmínka "then" příkaz
+            | "while" podmínka "do" příkaz
+            | "write" výraz ].                                                      (*  prikaz navic, je to procedura   *)
+
+podmínka = "odd" výraz |
+           výraz ("="|"#"|"<"|"<="|">"|">=") výraz .
+
+výraz =  ["+"|"-"] term { ("+"|"-") term}.
+
+term = faktor {("*"|"/") faktor}.
+
+faktor = ident | číslo | "(" výraz ")".    //  ( ) vynecham, nebo se vyřeší samo stromem
+
+************************************    EN  *******************************************
+program = block "." .
+
+block = [ "const" ident "=" number {"," ident "=" number} ";"]
+        [ "var" ident {"," ident} ";"]
+        { "procedure" ident ";" block ";" } statement .
+
+statement = [ ident ":=" expression | "call" ident
+              | "?" ident | "!" expression
+              | "begin" statement {";" statement } "end"
+              | "if" condition "then" statement
+              | "while" condition "do" statement ].
+
+condition = "odd" expression |
+            expression ("="|"#"|"<"|"<="|">"|">=") expression .
+
+expression = [ "+"|"-"] term { ("+"|"-") term}.
+
+term = factor {("*"|"/") factor}.
+
+factor = ident | number | "(" expression ")".
