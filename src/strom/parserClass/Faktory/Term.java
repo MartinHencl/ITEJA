@@ -12,4 +12,16 @@ public class Term {
         faktorList = new ArrayList<>();
         operaceList = new ArrayList<>();
     }
+
+//    @Override
+//    public String toString() {
+//        StringBuilder vypis = new StringBuilder();
+//        for (Faktor faktor : faktorList) {
+//            vypis.append(faktor.toString()).append("\n");
+//        }
+//        for (Operace operace : operaceList) {
+//            vypis.append(operace.toString()).append("\n");
+//        }
+//        return vypis.toString();
+//    }
 }

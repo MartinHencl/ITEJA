@@ -5,4 +5,9 @@ public class Cislo extends Faktor {
     public Cislo(){
         hodnota = 0;
     }
+
+//    @Override
+//    public String toString() {
+//        return " " + String.valueOf(hodnota) + " ";
+//    }
 }

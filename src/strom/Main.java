@@ -103,7 +103,9 @@ public class Main {
 
         Parser parser = new Parser(lexer.getTokenList());
         try {
-            Blok blok = parser.blok();
+            Blok blok = parser.program();
+            System.out.println();
+            System.out.print(blok.toString());
         } catch (ChybaSyntaxeException e) {
             e.printStackTrace();
         }

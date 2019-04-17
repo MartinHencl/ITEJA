@@ -19,4 +19,22 @@ public class Blok {
         procedury = new ArrayList<>();
         prikazy = new ArrayList<>();
     }
+
+//    @Override
+//    public String toString() {
+//        StringBuilder vypis = new StringBuilder();
+//        for (Konstanta konst : konstanty) {
+//            vypis.append(konst.toString()).append("\n");
+//        }
+//        for (Promenna prom : promenne) {
+//            vypis.append(prom.toString()).append("\n");
+//        }
+//        for (Procedura proc : procedury) {
+//            vypis.append(proc.toString()).append("\n");
+//        }
+//        for (Prikaz prik : prikazy) {
+//            vypis.append(prik.toString()).append("\n");
+//        }
+//        return vypis.toString();
+//    }
 }

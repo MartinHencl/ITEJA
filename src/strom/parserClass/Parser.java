@@ -20,31 +20,45 @@ public class Parser {
         tokenListInitSizeCONST = tokenList.size();
     }
 
-    public Blok blok() throws ChybaSyntaxeException {
+    public Blok program() throws ChybaSyntaxeException {
+        //  blok "."
+        Blok blok = nactiBlok();
+        //  .
+        Token t = tokenList.get(0);
+        if (t.getTypeOfToken() != TokenType.T_EOF) {        //  .
+            throw new ChybaSyntaxeException("Chyba syntaxe; trida: " + this.getClass().getSimpleName() + " token.Key: " + t.getTypeOfToken() + " token.Value: " + t.getValueOfToken() + " index: " + (tokenListInitSizeCONST - tokenList.size()));
+        }
+        //  konec hry
+        return blok;
+    }
+
+    private Blok nactiBlok() throws ChybaSyntaxeException {
+        //  [ "const" ident "=" číslo {"," ident "=" číslo} ";"]
+        //  [ "var" ident {"," ident} ";"]
+        //  { "procedure" ident ";" blok ";" }
+        //  příkaz
         Blok blok = new Blok();
+        //  [ "const" ident "=" číslo {"," ident "=" číslo} ";"]
         Token t = tokenList.get(0);     //  get == peek()
-        if (t.getTypeOfToken() == TokenType.T_CONST) {      //  [ "const" ident "=" číslo {"," ident "=" číslo} ";"]
+        if (t.getTypeOfToken() == TokenType.T_CONST) {
             blok.konstanty.add(nactiKonstantu());
         }
+        //  [ "var" ident {"," ident} ";"]
         t = tokenList.get(0);
-        if (t.getTypeOfToken() == TokenType.T_VAR) {        //  [ "var" ident {"," ident} ";"]
+        if (t.getTypeOfToken() == TokenType.T_VAR) {
             blok.promenne.add(nactiPromennou());
         }
-        while (true) {                                      //  { "procedure" ident ";" blok ";" }
+        //  { "procedure" ident ";" blok ";" }
+        while (true) {
             t = tokenList.get(0);
             if (t.getTypeOfToken() != TokenType.T_PROCEDURE) {
                 break;
             }
             blok.procedury.add(nactiProceduru());
         }
-
-        blok.prikazy.add(nactiPrikaz());                    //  prikaz
-
-        if (t.getTypeOfToken() == TokenType.T_EOF) {        //  .
-            //  konec hry
-            return blok;
-        }
-        return null;
+//       příkaz
+        blok.prikazy.add(nactiPrikaz());
+        return blok;
     }
 
     private Konstanta nactiKonstantu() throws ChybaSyntaxeException {
@@ -136,7 +150,7 @@ public class Parser {
     }
 
     private Procedura nactiProceduru() throws ChybaSyntaxeException {
-        //  "procedure" ident ";" blok ";"
+        //  "procedure" ident ";" nactiBlok ";"
         Procedura proc = new Procedura();
         Token t;
         //  "procedure"
@@ -160,8 +174,8 @@ public class Parser {
         }
         tokenList.remove(0);
 
-        //   blok
-        proc.blok = blok();
+        //   nactiBlok
+        proc.blok = nactiBlok();
         //   ";"
         t = tokenList.get(0);
         if (t.getTypeOfToken() != TokenType.T_SEMICOLON) {
@@ -309,7 +323,7 @@ public class Parser {
                 tokenList.remove(0);
                 //  vyraz
                 PrikazWrite prikazWrite = new PrikazWrite();
-                prikazWrite.toWrite = nactiVyraz();
+                prikazWrite.vyraz = nactiVyraz();
             default:
                 return null;
         }
@@ -436,7 +450,7 @@ public class Parser {
             case T_NUMBER_GENERAL:
                 faktor = new Cislo();
                 ((Cislo) faktor).hodnota = (int) t.getValueOfToken();
-                faktor.vyraz = null;
+                //faktor.vyraz = null;
                 tokenList.remove(0);
 
                 break;

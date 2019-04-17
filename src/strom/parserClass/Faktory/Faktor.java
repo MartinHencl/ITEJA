@@ -8,4 +8,9 @@ public class Faktor {
     public Faktor() {
         vyraz = new Vyraz();
     }
+
+//    @Override
+//    public String toString() {
+//        return " " + vyraz.toString() + " ";
+//    }
 }

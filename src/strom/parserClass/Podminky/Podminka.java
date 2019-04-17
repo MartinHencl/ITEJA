@@ -10,4 +10,9 @@ public class Podminka {
         vyrazLeva = new Vyraz();
         vyrazPrava = new Vyraz();
     }
+
+//    @Override
+//    public String toString() {
+//        return " " + vyrazLeva.toString() + " " + vyrazPrava.toString();
+//    }
 }

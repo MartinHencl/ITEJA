@@ -11,7 +11,8 @@ příkaz = [    ident ":=" výraz
             | "!" výraz     // vynecham
             | "begin" příkaz {";" příkaz } "end"
             | "if" podmínka "then" příkaz
-            | "while" podmínka "do" příkaz ].
+            | "while" podmínka "do" příkaz
+            | "write" výraz ].                                                      (*  prikaz navic, je to procedura   *)
 
 podmínka = "odd" výraz |
            výraz ("="|"#"|"<"|"<="|">"|">=") výraz .
